@@ -42,5 +42,5 @@ frontend http_front
 
 backend http_back
     redirect scheme https if !{ ssl_fc }
-        server 5781-web-01 54.90.138.78:80 check
-        server 5781-web-02 52.205.230.22:80 check
+        server 5781-web-01 54.90.138.78:80 
+        server 5781-web-02 52.205.230.22:80 

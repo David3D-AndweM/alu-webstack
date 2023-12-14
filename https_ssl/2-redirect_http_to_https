@@ -34,15 +34,13 @@ defaults
         errorfile 503 /etc/haproxy/errors/503.http
         errorfile 504 /etc/haproxy/errors/504.http
 
-frontend www.cprogramming.tech
-        mode http
-        bind :80
-        bind :443 ssl crt /etc/letsencrypt/live/www.cprogramming.tech/combined.pem
-        http-request redirect scheme https code 301 unless { ssl_fc }
-        default_backend cprogram_servers
+frontend http_front
+    bind *:443 ssl crt /etc/letsencrypt/live/www.oche-ankeli.tech/fullchain.pem  
+    http-request add-header X-Forwarded-Proto http
+    http-request redirect scheme https if !{ ssl_fc }
+    use_backend http_back
 
-backend cprogram_servers
-        mode http
-        balance roundrobin
+backend http_back
+    redirect scheme https if !{ ssl_fc }
         server 5781-web-01 54.90.138.78:80 check
         server 5781-web-02 52.205.230.22:80 check

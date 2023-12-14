@@ -32,7 +32,7 @@ defaults
         errorfile 504 /etc/haproxy/errors/504.http
 
 frontend http_front 
-        bind *:443 ssl crt /etc/letsencrypt/live/www.resilientequitygreen.tech/fullchain.pem  
+        bind *:443 ssl crt /etc/letsencrypt/live/www.resilientequitygreen.tech/www.resilientequitygreen.tech.pem   
         http-request add-header X-Forwarded-Proto http 
         http-request redirect scheme https if !{ ssl_fc } 
         use_backend http_back 
@@ -41,4 +41,4 @@ backend http_back
         redirect scheme https if !{ ssl_fc } 
         server 5781-web-01 54.90.138.78:80 
         server 5781-web-02 52.205.230.22:80 
--- VISUAL LINE --                            
+~                                               
